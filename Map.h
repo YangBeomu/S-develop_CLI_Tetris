@@ -10,10 +10,17 @@ class CMap : public CRenderObject
 {
 	char m_szMapData[g_nMapHeight][g_nMapWidth + 1];
 
+	//beomu
+	bool isCheckLineComplete(int row);
+	void removeLine(int row);
+	
 public:
 	void Clear(void);
 	bool IsCollide(CTetrimino* pTetrimino);
 	void Pile(CTetrimino* pTetrimino);
 	void OnDraw(CRenderer* pRender);
+
+	//beomu
+	void CheckLineCompleteAndClear(CTetrimino* pTetrimino);
 };
 

@@ -171,3 +171,47 @@ void CTetrimino::OnDraw(CRenderer* pRenderer)
 	pRenderer->Draw(m_nPosX, m_nPosY + 2, m_szBlock[m_nRotation][2], 4);
 	pRenderer->Draw(m_nPosX, m_nPosY + 3, m_szBlock[m_nRotation][3], 4);
 }
+
+//beomu
+std::vector<POINT> CTetrimino::GetBlockPositions() {
+	std::vector<POINT> ret;
+
+	for (int row = 0; row < 4; row++) {
+		for (int col = 0; col < 5; col++) {
+			if(m_szBlock[this->m_nRotation][row][col] != ' '&& 
+				m_szBlock[this->m_nRotation][row][col] != '\0') {
+				POINT pt{};
+				
+				pt.x = m_nPosX + col;
+				pt.y = m_nPosY + row;
+
+				ret.push_back(pt);
+			}
+		}
+	}
+
+	if(ret.size() != 4)
+		printf("block size is wrong \n");
+
+	return ret;
+}
+
+void CTetrimino::Left() {
+	m_nPosX--;
+}
+
+void CTetrimino::Right() {
+	m_nPosX++;
+}
+
+void CTetrimino::Up() {
+	m_nPosY--;
+}
+
+void CTetrimino::Down() {
+	m_nPosY++;
+}
+
+void CTetrimino::Rotate() {
+	m_nRotation = m_nRotation < 3 ? m_nRotation + 1 : 0;
+}

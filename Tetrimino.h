@@ -22,5 +22,14 @@ class CTetrimino : public CRenderObject
 public:
 	void Reset(int nType);
 	void OnDraw(CRenderer* pRenderer);
+
+//beomu
+	std::vector<POINT> GetBlockPositions();
+
+	void Left();
+	void Right();
+	void Up();
+	void Down();
+	void Rotate();
 };
 

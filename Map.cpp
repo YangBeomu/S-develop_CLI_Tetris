@@ -1,5 +1,7 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Map.h"
+
+#define DEBUG 1
 
 void CMap::Clear(void)
 {
@@ -21,25 +23,85 @@ void CMap::Clear(void)
 	memcpy(m_szMapData[12], "**            **", 16 + 1);
 	memcpy(m_szMapData[13], "**            **", 16 + 1);
 	memcpy(m_szMapData[14], "**            **", 16 + 1);
+#if DEBUG
+	memcpy(m_szMapData[15], "************* **", 16 + 1);
+	memcpy(m_szMapData[16], "******** **** **", 16 + 1);
+	memcpy(m_szMapData[17], "************* **", 16 + 1);
+#else
 	memcpy(m_szMapData[15], "**            **", 16 + 1);
 	memcpy(m_szMapData[16], "**            **", 16 + 1);
 	memcpy(m_szMapData[17], "**            **", 16 + 1);
+#endif
 	memcpy(m_szMapData[18], "****************", 16 + 1);
 	memcpy(m_szMapData[19], "****************", 16 + 1);
 }
 
 bool CMap::IsCollide(CTetrimino* pTetrimino)
 {
+	auto tBlkPositions = pTetrimino->GetBlockPositions();
+
+	for (const auto& tBlkPosition : tBlkPositions) {
+		//충돌 직전 체크
+		/*int dx[] = { -1, 1, 0, 0 };
+		int dy[] = { 0, 0, -1 , 1 };
+
+		for (int i = 0; i < 4; i++) {
+			if (m_szMapData[tBlkPosition.y + dy[i]][tBlkPosition.x + dx[i]] == '*') {
+				return true;
+			}
+		}*/
+
+		if (m_szMapData[tBlkPosition.y][tBlkPosition.x] == '*')
+			return true;
+	}
 	return false;
 }
+
 
 void CMap::Pile(CTetrimino* pTetrimino)
 {
 	// TODO
+	auto tBlkPositions = pTetrimino->GetBlockPositions();
+
+	for(const auto& tBlkPosition : tBlkPositions)
+		this->m_szMapData[tBlkPosition.y][tBlkPosition.x] = '*';
 }
 
 void CMap::OnDraw(CRenderer* pRender)
 {
 	for (int i = 0; i < g_nMapHeight; i++)
 		pRender->Draw(m_nPosX, m_nPosY + i, m_szMapData[i], g_nMapWidth);
+}
+
+//beomu
+bool CMap::isCheckLineComplete(int row) {
+	for (int col = 0; col < g_nMapWidth; col++)
+		if (m_szMapData[row][col] != '*') return false;
+
+	return true;
+}
+
+void CMap::removeLine(int row) {
+	int size = (g_nMapWidth + 1) * (row);
+
+	char* tmp = new char[size];
+	memcpy(tmp, m_szMapData[0], size);
+
+	for (int col = 2; col < g_nMapWidth - 2; col++) {
+		m_szMapData[0][col] = ' ';
+		m_szMapData[row][col] = ' ';
+	}
+
+	memcpy(m_szMapData[1], tmp, size);
+	delete(tmp);
+}
+
+void CMap::CheckLineCompleteAndClear(CTetrimino* pTetrimino) {
+	auto tBlkPositions = pTetrimino->GetBlockPositions();
+
+	for (const auto& tBlkPosition : tBlkPositions) {
+		if (isCheckLineComplete(tBlkPosition.y)) {
+			removeLine(tBlkPosition.y);
+		}
+	}
 }
