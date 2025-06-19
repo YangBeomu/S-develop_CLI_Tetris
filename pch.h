@@ -7,3 +7,4 @@
 
 //beomu
 #include <vector>
+#include <string>

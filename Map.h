@@ -4,7 +4,7 @@
 #include "Tetrimino.h"
 
 const int g_nMapWidth = 16;
-const int g_nMapHeight = 20;
+const int g_nMapHeight = 21;
 
 class CMap : public CRenderObject
 {
@@ -21,6 +21,7 @@ public:
 	void OnDraw(CRenderer* pRender);
 
 	//beomu
-	void CheckLineCompleteAndClear(CTetrimino* pTetrimino);
+	bool CheckLineCompleteAndClear(CTetrimino* pTetrimino);
+	void SetScore(UINT score);
 };
 

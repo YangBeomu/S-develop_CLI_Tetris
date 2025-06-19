@@ -6,9 +6,17 @@ int main()
 	CTetris tetris;
 
 	int nFPS = 10;
-	int nSleepTime = 1000 / nFPS;
+	int nSleepTime = 1500 / nFPS;
+
+	
+	HWND console = GetForegroundWindow();
+
 	while (GAME_ERROR != tetris.GetState() && GAME_END != tetris.GetState())
-	{
+	{	
+		if (console != GetForegroundWindow()) {
+			Sleep(100);
+			continue;
+		}
 		ST_KEY_STATE stKeyState;
 		stKeyState.Clear();
 

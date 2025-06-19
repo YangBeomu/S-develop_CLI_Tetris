@@ -36,6 +36,10 @@ class CTetris
 
 	GAME_STATE m_State;
 
+	//beomu
+	static constexpr int ADD_SCORE_NUMBER = 100;
+	unsigned int score_{};
+
 public:
 	CTetris(void);
 	~CTetris(void);

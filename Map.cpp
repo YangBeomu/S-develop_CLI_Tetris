@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "Map.h"
 
-#define DEBUG 1
+#define DEBUG 0
 
 void CMap::Clear(void)
 {
@@ -24,9 +24,9 @@ void CMap::Clear(void)
 	memcpy(m_szMapData[13], "**            **", 16 + 1);
 	memcpy(m_szMapData[14], "**            **", 16 + 1);
 #if DEBUG
-	memcpy(m_szMapData[15], "************* **", 16 + 1);
-	memcpy(m_szMapData[16], "******** **** **", 16 + 1);
-	memcpy(m_szMapData[17], "************* **", 16 + 1);
+	memcpy(m_szMapData[15], "** *************", 16 + 1);
+	memcpy(m_szMapData[16], "** *************", 16 + 1);
+	memcpy(m_szMapData[17], "** *************", 16 + 1);
 #else
 	memcpy(m_szMapData[15], "**            **", 16 + 1);
 	memcpy(m_szMapData[16], "**            **", 16 + 1);
@@ -34,6 +34,7 @@ void CMap::Clear(void)
 #endif
 	memcpy(m_szMapData[18], "****************", 16 + 1);
 	memcpy(m_szMapData[19], "****************", 16 + 1);
+	memcpy(m_szMapData[20], "score : ", sizeof("score : 0"));
 }
 
 bool CMap::IsCollide(CTetrimino* pTetrimino)
@@ -96,12 +97,23 @@ void CMap::removeLine(int row) {
 	delete(tmp);
 }
 
-void CMap::CheckLineCompleteAndClear(CTetrimino* pTetrimino) {
+bool CMap::CheckLineCompleteAndClear(CTetrimino* pTetrimino) {
 	auto tBlkPositions = pTetrimino->GetBlockPositions();
 
 	for (const auto& tBlkPosition : tBlkPositions) {
 		if (isCheckLineComplete(tBlkPosition.y)) {
 			removeLine(tBlkPosition.y);
+			return true;
 		}
 	}
+
+	return false;
+
+}
+
+void CMap::SetScore(UINT score) {
+	std::string ret("score : ");
+	ret.append(std::to_string(score));
+
+	memcpy(m_szMapData[20], ret.c_str(), ret.length()+1);
 }

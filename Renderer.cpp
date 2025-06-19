@@ -22,7 +22,10 @@ void CRenderer::Draw(int x, int y, const char* pszBuffer, int nBufferSize)
 
 void CRenderer::Render(void)
 {
-	system("cls");
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	
+	COORD cursorPosition = { 0, 0 };
+	SetConsoleCursorPosition(hConsole, cursorPosition);
 
 	for (int y = 0; y < g_nScreenHeight; y++)
 		printf("%s\n", m_szScreenBuffer[y]);

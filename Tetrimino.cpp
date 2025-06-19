@@ -170,6 +170,7 @@ void CTetrimino::OnDraw(CRenderer* pRenderer)
 	pRenderer->Draw(m_nPosX, m_nPosY + 1, m_szBlock[m_nRotation][1], 4);
 	pRenderer->Draw(m_nPosX, m_nPosY + 2, m_szBlock[m_nRotation][2], 4);
 	pRenderer->Draw(m_nPosX, m_nPosY + 3, m_szBlock[m_nRotation][3], 4);
+	pRenderer->Draw(m_nPosX, m_nPosY + 3, m_szBlock[m_nRotation][3], 4);
 }
 
 //beomu
