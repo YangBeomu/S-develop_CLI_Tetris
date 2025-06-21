@@ -1,8 +1,6 @@
 ﻿#include "pch.h"
 #include "Map.h"
 
-#define DEBUG 0
-
 void CMap::Clear(void)
 {
 	m_nPosX = 0;
@@ -23,7 +21,7 @@ void CMap::Clear(void)
 	memcpy(m_szMapData[12], "**            **", 16 + 1);
 	memcpy(m_szMapData[13], "**            **", 16 + 1);
 	memcpy(m_szMapData[14], "**            **", 16 + 1);
-#if DEBUG
+#if _DEBUG
 	memcpy(m_szMapData[15], "** *************", 16 + 1);
 	memcpy(m_szMapData[16], "** *************", 16 + 1);
 	memcpy(m_szMapData[17], "** *************", 16 + 1);
@@ -43,7 +41,7 @@ bool CMap::IsCollide(CTetrimino* pTetrimino)
 
 	for (const auto& tBlkPosition : tBlkPositions) {
 		//충돌 직전 체크
-		/*int dx[] = { -1, 1, 0, 0 };
+		/*int dx[] = {-1, 1, 0, 0};
 		int dy[] = { 0, 0, -1 , 1 };
 
 		for (int i = 0; i < 4; i++) {
@@ -97,17 +95,18 @@ void CMap::removeLine(int row) {
 	delete(tmp);
 }
 
-bool CMap::CheckLineCompleteAndClear(CTetrimino* pTetrimino) {
+uint8_t CMap::CheckLineCompleteAndClear(CTetrimino* pTetrimino) {
 	auto tBlkPositions = pTetrimino->GetBlockPositions();
+	uint8_t ret{};
 
 	for (const auto& tBlkPosition : tBlkPositions) {
 		if (isCheckLineComplete(tBlkPosition.y)) {
-			removeLine(tBlkPosition.y);
-			return true;
+			removeLine(tBlkPosition.y);	
+			ret++;
 		}
 	}
 
-	return false;
+	return ret;
 
 }
 

@@ -82,13 +82,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)\..\..\Build\$(Platform)$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)\..\..\Output\$(Platform)$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(ProjectDir)\..\..\bin\$(Platform)$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\..\..\obj\$(Platform)$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)\..\..\Build\$(Platform)$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)\..\..\Output\$(Platform)$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(ProjectDir)\..\..\bin\$(Platform)$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\..\..\obj\$(Platform)$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -124,6 +124,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,6 +140,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,15 +151,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AntiCheat.cpp" />
+    <ClCompile Include="AntiDebug.cpp" />
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="Tetrimino.cpp" />
     <ClCompile Include="Tetris.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AntiCheat.h" />
+    <ClInclude Include="AntiDebug.h" />
+    <ClInclude Include="Client.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderObject.h" />

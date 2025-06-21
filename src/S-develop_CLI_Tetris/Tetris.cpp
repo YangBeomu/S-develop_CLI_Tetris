@@ -40,6 +40,11 @@ void CTetris::Input(ST_KEY_STATE* pKeyState)
 				pKeyState->bRightKeyDown = true;
 			if ('W' == cKeyDown || 'w' == cKeyDown)
 				pKeyState->bRotateKeyDown = true;
+			if ('S' == cKeyDown || 's' == cKeyDown)
+				pKeyState->bSKeyDown = true;
+			
+			if (32 == cKeyDown)
+				pKeyState->bSpaceKeyDown = true;
 		}
 	}
 }
@@ -52,25 +57,34 @@ void CTetris::Update(ST_KEY_STATE stKeyState)
 	if (stKeyState.bLeftKeyDown) {
 		m_Tetrimino.Left();
 		if (m_Map.IsCollide(&m_Tetrimino)) m_Tetrimino.Right();
-	}
-	else if (stKeyState.bRightKeyDown) {
+	}else if (stKeyState.bRightKeyDown) {
 		m_Tetrimino.Right();
 		if (m_Map.IsCollide(&m_Tetrimino)) m_Tetrimino.Left();
-	}
-	else if (stKeyState.bRotateKeyDown) {
+	}else if (stKeyState.bRotateKeyDown) {
 		do {
 			m_Tetrimino.Rotate();
 		} while (m_Map.IsCollide(&m_Tetrimino));
 	}
+	else if (stKeyState.bSpaceKeyDown) {
+		do {
+			m_Tetrimino.Down();
+		} while (!m_Map.IsCollide(&m_Tetrimino));
+	}
 
-	m_Tetrimino.Down();
+	if(!m_Map.IsCollide(&m_Tetrimino)) m_Tetrimino.Down();
+
 	if (m_Map.IsCollide(&m_Tetrimino)) {
 		m_Tetrimino.Up();
 
 		m_Map.Pile(&m_Tetrimino);
-		if (m_Map.CheckLineCompleteAndClear(&m_Tetrimino)) {
-			score_ += ADD_SCORE_NUMBER;
-			m_Map.SetScore(score_);
+		std::unique_ptr<uint8_t> clearLine(new uint8_t(0));
+
+		if ((*clearLine.get() = m_Map.CheckLineCompleteAndClear(&m_Tetrimino))) {
+			
+			AddScore(*clearLine.get());
+			screenScore_ = GetScore();
+
+			m_Map.SetScore(screenScore_);
 		}
 		m_Tetrimino.Reset(rand() % TETRIMINO_COUNT);
 		if (m_Map.IsCollide(&m_Tetrimino)) m_State = GAME_END;
@@ -88,4 +102,34 @@ void CTetris::Render(void)
 //beomu
 GAME_STATE CTetris::GetState() {
 	return this->m_State;
+}
+
+void CTetris::AddScore(const uint8_t& clearLine) {
+	std::unique_ptr<float> tmp(new float(clearLine * ADD_SCORE_NUMBER));
+	std::unique_ptr<uint32_t> ori(new uint32_t(0));
+
+	for (int i = score_.size(); i > 0; i--) {
+		*ori.get() |= score_.front() << i;
+		score_.pop_front();
+	}
+
+	*ori.get() = *tmp.get() + static_cast<float>(*ori.get());
+
+	for (int i = sizeof(float) * 8; i > 0; i--)
+		score_.push_back((*ori.get() >> i) & 1);
+}
+
+float CTetris::GetScore() {
+	float ret{};
+	std::unique_ptr<uint32_t> ori(new uint32_t(0));
+
+	int i = score_.size();
+
+	for (const auto& it : score_) {
+		*ori.get() |= it << i--;
+	}
+
+	ret = static_cast<float>(*ori.get());
+
+	return ret;
 }

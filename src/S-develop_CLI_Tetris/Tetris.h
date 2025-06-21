@@ -3,13 +3,17 @@
 #include "Renderer.h"
 #include "Tetrimino.h"
 #include "Map.h"
-
+#include "Client.h"
+#include "AntiDebug.h"
+#include "AntiCheat.h"
 
 struct ST_KEY_STATE
 {
 	bool bRotateKeyDown;
 	bool bLeftKeyDown;
 	bool bRightKeyDown;
+	bool bSpaceKeyDown;
+	bool& bSKeyDown = bSpaceKeyDown;
 
 
 	void Clear(void)
@@ -17,6 +21,7 @@ struct ST_KEY_STATE
 		bRotateKeyDown = false;
 		bLeftKeyDown = false;
 		bRightKeyDown = false;
+		bSpaceKeyDown = false;
 	}
 };
 
@@ -37,8 +42,12 @@ class CTetris
 	GAME_STATE m_State;
 
 	//beomu
-	static constexpr int ADD_SCORE_NUMBER = 100;
-	unsigned int score_{};
+	static constexpr float ADD_SCORE_NUMBER = 100;
+	std::list<uint8_t> score_{};
+	float screenScore_{};
+
+	void AddScore(const uint8_t& clearLine);
+	float GetScore();
 
 public:
 	CTetris(void);

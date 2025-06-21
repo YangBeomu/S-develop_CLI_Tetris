@@ -21,7 +21,7 @@ public:
 	void OnDraw(CRenderer* pRender);
 
 	//beomu
-	bool CheckLineCompleteAndClear(CTetrimino* pTetrimino);
+	uint8_t CheckLineCompleteAndClear(CTetrimino* pTetrimino);
 	void SetScore(UINT score);
 };
 
