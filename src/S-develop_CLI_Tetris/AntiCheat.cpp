@@ -24,7 +24,7 @@ void AntiCheat::ErrorMsg(const string& msg) {
 //util
 bool AntiCheat::Init(const string& processName) {
 	try {
-		//ad_.Run();
+		ad_.Run();
 
 		if (!InitRemoteProcess(processName)) throw runtime_error("Failed to call init remote process.");
 
