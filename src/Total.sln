@@ -4,11 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.14.36203.30
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Memory_Detector", "Memory_Detector\Memory_Detector.vcxproj", "{30F8ABB5-75AE-466D-8FCC-D8AA8D91DBF4}"
-	ProjectSection(ProjectDependencies) = postProject
-		{48C4B2BC-ABB9-4389-8F3E-082789A08D39} = {48C4B2BC-ABB9-4389-8F3E-082789A08D39}
-	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Memory_Detector_Server", "Memory_Detector_Server\Memory_Detector_Server.vcxproj", "{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tetris", "S-develop_CLI_Tetris\Tetris.vcxproj", "{48C4B2BC-ABB9-4389-8F3E-082789A08D39}"
+	ProjectSection(ProjectDependencies) = postProject
+		{30F8ABB5-75AE-466D-8FCC-D8AA8D91DBF4} = {30F8ABB5-75AE-466D-8FCC-D8AA8D91DBF4}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "S-develop_CLI_Tetris_Server", "S-develop_CLI_Tetris_Server\S-develop_CLI_Tetris_Server.vcxproj", "{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +42,22 @@ Global
 		{30F8ABB5-75AE-466D-8FCC-D8AA8D91DBF4}.ReleaseMT|x64.Build.0 = ReleaseMT|x64
 		{30F8ABB5-75AE-466D-8FCC-D8AA8D91DBF4}.ReleaseMT|x86.ActiveCfg = ReleaseMT|Win32
 		{30F8ABB5-75AE-466D-8FCC-D8AA8D91DBF4}.ReleaseMT|x86.Build.0 = ReleaseMT|Win32
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.Debug|x64.ActiveCfg = Debug|x64
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.Debug|x64.Build.0 = Debug|x64
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.Debug|x86.ActiveCfg = Debug|Win32
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.Debug|x86.Build.0 = Debug|Win32
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.DebugMT|x64.ActiveCfg = DebugMT|x64
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.DebugMT|x64.Build.0 = DebugMT|x64
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.DebugMT|x86.ActiveCfg = DebugMT|Win32
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.DebugMT|x86.Build.0 = DebugMT|Win32
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.Release|x64.ActiveCfg = Release|x64
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.Release|x64.Build.0 = Release|x64
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.Release|x86.ActiveCfg = Release|Win32
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.Release|x86.Build.0 = Release|Win32
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.ReleaseMT|x64.ActiveCfg = ReleaseMT|x64
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.ReleaseMT|x64.Build.0 = ReleaseMT|x64
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.ReleaseMT|x86.ActiveCfg = ReleaseMT|Win32
+		{7E10BBE0-DFA0-4CB9-A678-E5ECBD071557}.ReleaseMT|x86.Build.0 = ReleaseMT|Win32
 		{48C4B2BC-ABB9-4389-8F3E-082789A08D39}.Debug|x64.ActiveCfg = Debug|x64
 		{48C4B2BC-ABB9-4389-8F3E-082789A08D39}.Debug|x64.Build.0 = Debug|x64
 		{48C4B2BC-ABB9-4389-8F3E-082789A08D39}.Debug|x86.ActiveCfg = Debug|Win32
@@ -54,6 +74,22 @@ Global
 		{48C4B2BC-ABB9-4389-8F3E-082789A08D39}.ReleaseMT|x64.Build.0 = ReleaseMT|x64
 		{48C4B2BC-ABB9-4389-8F3E-082789A08D39}.ReleaseMT|x86.ActiveCfg = Release|Win32
 		{48C4B2BC-ABB9-4389-8F3E-082789A08D39}.ReleaseMT|x86.Build.0 = Release|Win32
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.Debug|x64.ActiveCfg = Debug|x64
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.Debug|x64.Build.0 = Debug|x64
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.Debug|x86.ActiveCfg = Debug|Win32
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.Debug|x86.Build.0 = Debug|Win32
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.DebugMT|x64.ActiveCfg = DebugMT|x64
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.DebugMT|x64.Build.0 = DebugMT|x64
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.DebugMT|x86.ActiveCfg = Debug|Win32
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.DebugMT|x86.Build.0 = Debug|Win32
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.Release|x64.ActiveCfg = Release|x64
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.Release|x64.Build.0 = Release|x64
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.Release|x86.ActiveCfg = Release|Win32
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.Release|x86.Build.0 = Release|Win32
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.ReleaseMT|x64.ActiveCfg = ReleaseMT|x64
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.ReleaseMT|x64.Build.0 = ReleaseMT|x64
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.ReleaseMT|x86.ActiveCfg = Release|Win32
+		{DF412BC1-DA1A-4BE1-AB12-EAAFC126444D}.ReleaseMT|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

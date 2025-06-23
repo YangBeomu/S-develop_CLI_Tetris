@@ -43,10 +43,12 @@ class CTetris
 
 	//beomu
 	static constexpr float ADD_SCORE_NUMBER = 100;
+	static constexpr float DOWN_LOGIC_ACTIVATE_NUMBER = 4;
 	std::list<uint8_t> score_{};
 	float screenScore_{};
 
 	int posOffset_ = 0;
+	int downCnt = 0;
 
 	void AddScore(const uint8_t& clearLine);
 	float GetScore();

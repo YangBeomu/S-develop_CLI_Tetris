@@ -2,7 +2,6 @@
 
 class Detector
 {
-
 protected:
 	enum status {
 		STATUS_IDLE = 0,
@@ -43,7 +42,8 @@ protected:
 	};
 
 	static constexpr const TCHAR* exceptionDllList_[] = {
-		_T("apphelp.dll"),
+		TEXT("apphelp.dll"),
+		TEXT("sechost.dll"),
 	};
 
 	struct LogInformation {
@@ -199,6 +199,6 @@ public:
 	//LOG
 	LogInformation GetLog();
 
-	void test();
+	bool detect(std::vector<BYTE>& hash);
 };
 

@@ -124,13 +124,16 @@ int main()
 
 
 	try {
+		
+#ifndef DEBUG
 		Client ci;
+		if (!ci.Connect()) return -1;
 
-#ifndef _DEBUG
-		AntiCheat ac;
+		AntiCheat ac("Memory_Detector.exe");
+		ac.Run();
 #endif
-
-		//if (ci.Connect()) return -1;
+		
+		
 
 		bool restart = true;
 
@@ -139,7 +142,7 @@ int main()
 
 			CTetris tetris;
 
-			int nFPS = 60;
+			int nFPS = 140;
 			int nSleepTime = 10000 / nFPS;
 
 			HWND console = GetConsoleWindow();

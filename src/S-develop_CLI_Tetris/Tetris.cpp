@@ -70,6 +70,8 @@ void CTetris::Update(ST_KEY_STATE stKeyState)
 			do {
 				m_Tetrimino.Down();
 			} while (!m_Map.IsCollide(&m_Tetrimino));
+
+			downCnt = 0;
 		}
 	}
 
@@ -89,12 +91,17 @@ void CTetris::Update(ST_KEY_STATE stKeyState)
 		m_TetriminoPreView.Up();
 	}
 
+	//down logic
+	if (downCnt >= DOWN_LOGIC_ACTIVATE_NUMBER && !m_Map.IsCollide(&m_Tetrimino)) {
+		m_Tetrimino.Down();
+		downCnt = 0;
+	}
 
+	downCnt++;
+		
 
 	//score logic
 	{
-		if(!m_Map.IsCollide(&m_Tetrimino)) m_Tetrimino.Down();
-
 		if (m_Map.IsCollide(&m_Tetrimino)) {
 			m_Tetrimino.Up();
 
