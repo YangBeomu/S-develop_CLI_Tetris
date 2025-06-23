@@ -22,17 +22,27 @@ void CMap::Clear(void)
 	memcpy(m_szMapData[13], "**            **", 16 + 1);
 	memcpy(m_szMapData[14], "**            **", 16 + 1);
 #if _DEBUG
-	memcpy(m_szMapData[15], "** *************", 16 + 1);
-	memcpy(m_szMapData[16], "** *************", 16 + 1);
-	memcpy(m_szMapData[17], "** *************", 16 + 1);
+	memcpy(m_szMapData[15], "**            **", 16 + 1);
+	memcpy(m_szMapData[16], "**            **", 16 + 1);
+	memcpy(m_szMapData[17], "**            **", 16 + 1);
+	memcpy(m_szMapData[18], "**            **", 16 + 1);
+	memcpy(m_szMapData[19], "**            **", 16 + 1);
+	memcpy(m_szMapData[20], "**            **", 16 + 1);
+	memcpy(m_szMapData[21], "**            **", 16 + 1);
+	memcpy(m_szMapData[22], "**            **", 16 + 1);
 #else
 	memcpy(m_szMapData[15], "**            **", 16 + 1);
 	memcpy(m_szMapData[16], "**            **", 16 + 1);
 	memcpy(m_szMapData[17], "**            **", 16 + 1);
+	memcpy(m_szMapData[18], "**            **", 16 + 1);
+	memcpy(m_szMapData[19], "**            **", 16 + 1);
+	memcpy(m_szMapData[20], "**            **", 16 + 1);
+	memcpy(m_szMapData[21], "**            **", 16 + 1);
+	memcpy(m_szMapData[22], "**            **", 16 + 1);
 #endif
-	memcpy(m_szMapData[18], "****************", 16 + 1);
-	memcpy(m_szMapData[19], "****************", 16 + 1);
-	memcpy(m_szMapData[20], "score : ", sizeof("score : 0"));
+	memcpy(m_szMapData[23], "****************", 16 + 1);
+	memcpy(m_szMapData[24], "****************", 16 + 1);
+	memcpy(m_szMapData[25], "score : ", sizeof("score : 0"));
 }
 
 bool CMap::IsCollide(CTetrimino* pTetrimino)
@@ -114,5 +124,5 @@ void CMap::SetScore(UINT score) {
 	std::string ret("score : ");
 	ret.append(std::to_string(score));
 
-	memcpy(m_szMapData[20], ret.c_str(), ret.length()+1);
+	memcpy(m_szMapData[g_nMapHeight-1], ret.c_str(), ret.length()+1);
 }

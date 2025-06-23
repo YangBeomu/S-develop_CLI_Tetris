@@ -36,7 +36,7 @@ enum GAME_STATE {
 class CTetris
 {
 	CRenderer m_Render;
-	CTetrimino m_Tetrimino;
+	CTetrimino m_Tetrimino, m_TetriminoPreView;
 	CMap m_Map;
 
 	GAME_STATE m_State;
@@ -45,6 +45,8 @@ class CTetris
 	static constexpr float ADD_SCORE_NUMBER = 100;
 	std::list<uint8_t> score_{};
 	float screenScore_{};
+
+	int posOffset_ = 0;
 
 	void AddScore(const uint8_t& clearLine);
 	float GetScore();

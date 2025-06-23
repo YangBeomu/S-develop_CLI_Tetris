@@ -4,7 +4,7 @@
 #include "Tetrimino.h"
 
 const int g_nMapWidth = 16;
-const int g_nMapHeight = 21;
+const int g_nMapHeight = 26;
 
 class CMap : public CRenderObject
 {

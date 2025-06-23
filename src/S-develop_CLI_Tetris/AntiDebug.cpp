@@ -47,11 +47,36 @@ bool AntiDebug::GetDebuggingWithCheckRemotePresent() {
 bool AntiDebug::GetDebuggingWIthNtQueryInformation() {
 	HMODULE ntdll = GetModuleHandle(L"ntdll.dll");
 	pNtQueryInformationProcess proc = reinterpret_cast<pNtQueryInformationProcess>(GetProcAddress(ntdll, "NtQueryInformationProcess"));
-	DWORD debugPort = 0;
-	NTSTATUS status = proc(GetCurrentProcess(), ProcessDebugPort, &debugPort, sizeof(DWORD), nullptr);
+	
+	DWORD debugPort{};
+	DWORD debugOpbject{};
+	PROCESS_BASIC_INFORMATION pbi{};
+	
+	NTSTATUS status{};
 
-	return NT_SUCCESS(status) && debugPort != 0;
+	status = proc(GetCurrentProcess(), ProcessDebugPort, &debugPort, sizeof(DWORD), nullptr);
+	if (NT_SUCCESS(status) && (debugPort != 0)) return true;
+	
+	//window
+	status = proc(GetCurrentProcess(), ProcessDebugObjectHandle, &debugOpbject, sizeof(DWORD), nullptr);
+	if (NT_SUCCESS(status) && (debugOpbject != NULL)) return true;
+
+	//veh
+	status = proc(GetCurrentProcess(), ProcessBasicInformation, &pbi, sizeof(pbi), nullptr);
+	if (NT_SUCCESS(status) && (pbi.PebBaseAddress == nullptr)) return true;
+
+	{
+		PPEB pebPtr = reinterpret_cast<PPEB>(pbi.PebBaseAddress);
+		DWORD64 crossProcessFlags = -1;
+
+		memcpy(&crossProcessFlags, (PBYTE)pebPtr + 0x50, sizeof(DWORD64));
+
+		if (crossProcessFlags & 0x4)  return true;
+	}
+
+	return false;
 }
+
 
 //status 
 void AntiDebug::Continue() {
@@ -87,14 +112,8 @@ void AntiDebug::DebuggingCheckThread() {
 			break;
 			
 			case STATUS_RUNNING: {
-				if (GetDebuggingWIthPEB()) {
-					cout << "peb" << endl;
-					exit(1);
-				}
-				if (GetDebuggingWIthNtQueryInformation()) {
-					cout << "ntquery" << endl;
-					exit(1);
-				}
+				if (GetDebuggingWIthPEB()) exit(1);
+				if (GetDebuggingWIthNtQueryInformation()) exit(1);
 			}
 			break;	
 			case STATUS_STOPPED: {

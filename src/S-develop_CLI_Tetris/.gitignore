@@ -1,0 +1,56 @@
+## Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio 2022 cache/options
+.vscode/
+.vs/
+*.VC.db
+*.VC.VC.opendb
+
+## ASP.NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## .NET Core
+project.assets.json
+*.runtimeconfig.dev.json
+*.deps.json
+
+## Unit Test
+TestResults/
+*.coverage
+*.coveragexml
+
+## Publish outputs
+publish/
+*.publish.xml
+
+## NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+*.Symbols.nupkg
+*.nupkg.sha512
+.nuget/
+
+## Rider (JetBrains)
+.idea/
+*.sln.iml
+
+## Others
+*.log
+*.tmp
+*.bak
+*.orig
+*.cache
+*.dbmdl
+*.dbproj.schemaview
+*.pdb

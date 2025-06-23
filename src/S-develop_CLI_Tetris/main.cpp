@@ -122,47 +122,57 @@ int main()
 	SetConsoleOutputCP(CP_UTF8);
 	SetConsoleCP(CP_UTF8);
 
+
+	try {
+		Client ci;
+
 #ifndef _DEBUG
-	AntiCheat ac;
+		AntiCheat ac;
 #endif
 
-	bool restart = true;
+		//if (ci.Connect()) return -1;
 
-	while (restart) {
-		StartScreen();
-		
-		CTetris tetris;
+		bool restart = true;
 
-		int nFPS = 10;
-		int nSleepTime = 2000 / nFPS;
+		while (restart) {
+			StartScreen();
 
-		HWND console = GetConsoleWindow();
-		console = GetWindow(console, GW_OWNER);
+			CTetris tetris;
 
-		while (GAME_ERROR != tetris.GetState() && GAME_END != tetris.GetState())
-		{
-			if (console != GetForegroundWindow()) {
-				PauseScreen();
-				continue;
+			int nFPS = 60;
+			int nSleepTime = 10000 / nFPS;
+
+			HWND console = GetConsoleWindow();
+			console = GetWindow(console, GW_OWNER);
+
+			while (GAME_ERROR != tetris.GetState() && GAME_END != tetris.GetState())
+			{
+				if (console != GetForegroundWindow()) {
+					PauseScreen();
+					continue;
+				}
+				ST_KEY_STATE stKeyState;
+				stKeyState.Clear();
+
+				tetris.Input(&stKeyState);
+				tetris.Update(stKeyState);
+				tetris.Render();
+
+				Sleep(nSleepTime);
 			}
-			ST_KEY_STATE stKeyState;
-			stKeyState.Clear();
 
-			tetris.Input(&stKeyState);
-			tetris.Update(stKeyState);
-			tetris.Render();
+			system("cls");
 
-			Sleep(nSleepTime);
+			// 게임 오버 메시지와 함께 재시작 옵션 제공
+			int response = MessageBox(NULL, TEXT("게임 오버! 다시 시작하시겠습니까?"),
+				TEXT("테트리스"), MB_YESNO | MB_ICONQUESTION);
+
+			// 사용자 선택에 따라 재시작 여부 결정
+			restart = (response == IDYES);
 		}
-
-		system("cls");
-
-		// 게임 오버 메시지와 함께 재시작 옵션 제공
-		int response = MessageBox(NULL, TEXT("게임 오버! 다시 시작하시겠습니까?"),
-			TEXT("테트리스"), MB_YESNO | MB_ICONQUESTION);
-
-		// 사용자 선택에 따라 재시작 여부 결정
-		restart = (response == IDYES);
 	}
-
+	catch (const std::exception& e) {
+		std::cerr << "[main] " << e.what() << std::endl;
+		return -1;
+	}
 }

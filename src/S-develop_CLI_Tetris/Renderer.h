@@ -1,7 +1,7 @@
 #pragma once
 
 const int g_nScreenWidth = 30;
-const int g_nScreenHeight = 25;
+const int g_nScreenHeight = 26;
 
 class CRenderer
 {

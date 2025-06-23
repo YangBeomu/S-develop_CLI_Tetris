@@ -51,43 +51,66 @@ void CTetris::Input(ST_KEY_STATE* pKeyState)
 
 void CTetris::Update(ST_KEY_STATE stKeyState)
 {
-	// TODO
 	if (GAME_PROGRESS != m_State) return;
 
-	if (stKeyState.bLeftKeyDown) {
-		m_Tetrimino.Left();
-		if (m_Map.IsCollide(&m_Tetrimino)) m_Tetrimino.Right();
-	}else if (stKeyState.bRightKeyDown) {
-		m_Tetrimino.Right();
-		if (m_Map.IsCollide(&m_Tetrimino)) m_Tetrimino.Left();
-	}else if (stKeyState.bRotateKeyDown) {
-		do {
-			m_Tetrimino.Rotate();
-		} while (m_Map.IsCollide(&m_Tetrimino));
-	}
-	else if (stKeyState.bSpaceKeyDown) {
-		do {
-			m_Tetrimino.Down();
-		} while (!m_Map.IsCollide(&m_Tetrimino));
-	}
-
-	if(!m_Map.IsCollide(&m_Tetrimino)) m_Tetrimino.Down();
-
-	if (m_Map.IsCollide(&m_Tetrimino)) {
-		m_Tetrimino.Up();
-
-		m_Map.Pile(&m_Tetrimino);
-		std::unique_ptr<uint8_t> clearLine(new uint8_t(0));
-
-		if ((*clearLine.get() = m_Map.CheckLineCompleteAndClear(&m_Tetrimino))) {
-			
-			AddScore(*clearLine.get());
-			screenScore_ = GetScore();
-
-			m_Map.SetScore(screenScore_);
+	//keyboard
+	{
+		if (stKeyState.bLeftKeyDown) {
+			m_Tetrimino.Left();
+			if (m_Map.IsCollide(&m_Tetrimino)) m_Tetrimino.Right();
+		}else if (stKeyState.bRightKeyDown) {
+			m_Tetrimino.Right();
+			if (m_Map.IsCollide(&m_Tetrimino)) m_Tetrimino.Left();
+		}else if (stKeyState.bRotateKeyDown) {
+			do {
+				m_Tetrimino.Rotate();
+			} while (m_Map.IsCollide(&m_Tetrimino));
 		}
-		m_Tetrimino.Reset(rand() % TETRIMINO_COUNT);
-		if (m_Map.IsCollide(&m_Tetrimino)) m_State = GAME_END;
+		else if (stKeyState.bSpaceKeyDown) {
+			do {
+				m_Tetrimino.Down();
+			} while (!m_Map.IsCollide(&m_Tetrimino));
+		}
+	}
+
+
+	//preview code
+	{
+		m_TetriminoPreView = m_Tetrimino;
+
+		int cnt = 0;
+
+		while (!m_Map.IsCollide(&m_TetriminoPreView)) {
+			cnt++;
+			m_TetriminoPreView.Down();
+		}
+
+		posOffset_ = cnt-1;
+		m_TetriminoPreView.Up();
+	}
+
+
+
+	//score logic
+	{
+		if(!m_Map.IsCollide(&m_Tetrimino)) m_Tetrimino.Down();
+
+		if (m_Map.IsCollide(&m_Tetrimino)) {
+			m_Tetrimino.Up();
+
+			m_Map.Pile(&m_Tetrimino);
+			std::unique_ptr<uint8_t> clearLine(new uint8_t(0));
+
+			if ((*clearLine.get() = m_Map.CheckLineCompleteAndClear(&m_Tetrimino))) {
+				
+				AddScore(*clearLine.get());
+				screenScore_ = GetScore();
+
+				m_Map.SetScore(screenScore_);
+			}
+			m_Tetrimino.Reset(rand() % TETRIMINO_COUNT);
+			if (m_Map.IsCollide(&m_Tetrimino)) m_State = GAME_END;
+		}
 	}
 }
 
@@ -96,6 +119,10 @@ void CTetris::Render(void)
 	m_Render.Clear();
 	m_Map.OnDraw(&m_Render);
 	m_Tetrimino.OnDraw(&m_Render);
+
+	if(posOffset_ > 2)
+		m_TetriminoPreView.OnDraw(&m_Render);
+
 	m_Render.Render();
 }
 

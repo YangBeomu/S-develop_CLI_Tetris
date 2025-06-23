@@ -12,7 +12,7 @@
 #include <Windows.h>
 #include <Psapi.h>
 #include <tlhelp32.h>
-//#include <winternl.h>
+#include <winternl.h>
 
 //beomu
 #include <uchar.h>
