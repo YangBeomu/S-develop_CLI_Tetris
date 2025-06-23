@@ -125,17 +125,19 @@ int main()
 
 	try {
 		
-#ifndef DEBUG
-		Client ci;
-		if (!ci.Connect()) return -1;
-
+#ifndef _DEBUG
 		AntiCheat ac("Memory_Detector.exe");
 		ac.Run();
-#endif
-		
-		
 
+		NetworkManager nm(NetworkManager::Type::CLIENT, ntohl(Ip("127.0.0.1")), 8986);
+		nm.Run();
+#endif
+	
 		bool restart = true;
+
+		std::string name;
+		std::cout << u8"이름을 입력하세요: ";
+		std::getline(std::cin, name);
 
 		while (restart) {
 			StartScreen();
@@ -165,6 +167,14 @@ int main()
 			}
 
 			system("cls");
+			auto scoreInfo = tetris.GetScores();
+
+#ifndef _DEBUG
+			nm.PushData(name.data(), name.size());
+			nm.PushData(reinterpret_cast<char*>(&scoreInfo.at(0)), sizeof(scoreInfo.at(0)));
+#endif
+			
+			std::cout << name + u8"의 점수 : " << std::to_string(static_cast<int>(scoreInfo.at(0))) << std::endl;
 
 			// 게임 오버 메시지와 함께 재시작 옵션 제공
 			int response = MessageBox(NULL, TEXT("게임 오버! 다시 시작하시겠습니까?"),

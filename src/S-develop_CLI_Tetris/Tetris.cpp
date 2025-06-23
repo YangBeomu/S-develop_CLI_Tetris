@@ -167,3 +167,12 @@ float CTetris::GetScore() {
 
 	return ret;
 }
+
+std::vector<float> CTetris::GetScores() {
+	std::vector<float> ret{};
+
+	ret.push_back(GetScore());
+	ret.push_back(screenScore_);
+
+	return ret;
+}

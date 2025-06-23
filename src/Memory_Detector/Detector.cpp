@@ -766,7 +766,7 @@ bool Detector::detect(vector<BYTE>& hash) {
 	bool detected = false;
 
 	//if (!CompareHash(hash)) detected = true;
-	if (!CompareDLLs()) detected = true;
+	//if (!CompareDLLs()) detected = true;
 	if (!CompareIAT()) detected = true;
 	if (!CompareSection(Section::TEXT)) detected = true;
 	if (!IsProcessRunning(processName_)) detected = true;

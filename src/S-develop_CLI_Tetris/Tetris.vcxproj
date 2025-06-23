@@ -148,21 +148,25 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)\..\..\bin\$(Platform)$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)\..\..\obj\$(Platform)$(Configuration)\$(ProjectName)\</IntDir>
+    <ExternalIncludePath>$(ProjectDir)..\..\inc\;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMT|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)\..\..\bin\$(Platform)$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)\..\..\obj\$(Platform)$(Configuration)\$(ProjectName)\</IntDir>
+    <ExternalIncludePath>$(ProjectDir)..\..\inc\;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)\..\..\bin\$(Platform)$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)\..\..\obj\$(Platform)$(Configuration)\$(ProjectName)\</IntDir>
+    <ExternalIncludePath>$(ProjectDir)..\..\inc\;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMT|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)\..\..\bin\$(Platform)$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)\..\..\obj\$(Platform)$(Configuration)\$(ProjectName)\</IntDir>
+    <ExternalIncludePath>$(ProjectDir)..\..\inc\;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -289,9 +293,9 @@
   <ItemGroup>
     <ClCompile Include="AntiCheat.cpp" />
     <ClCompile Include="AntiDebug.cpp" />
-    <ClCompile Include="Client.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugMT|x64'">Create</PrecompiledHeader>
@@ -306,8 +310,8 @@
   <ItemGroup>
     <ClInclude Include="AntiCheat.h" />
     <ClInclude Include="AntiDebug.h" />
-    <ClInclude Include="Client.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="pch.h" />

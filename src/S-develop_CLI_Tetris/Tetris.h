@@ -3,9 +3,9 @@
 #include "Renderer.h"
 #include "Tetrimino.h"
 #include "Map.h"
-#include "Client.h"
 #include "AntiDebug.h"
 #include "AntiCheat.h"
+#include "NetworkManager.h"
 
 struct ST_KEY_STATE
 {
@@ -35,6 +35,11 @@ enum GAME_STATE {
 
 class CTetris
 {
+private:
+	struct {
+		
+	};
+
 	CRenderer m_Render;
 	CTetrimino m_Tetrimino, m_TetriminoPreView;
 	CMap m_Map;
@@ -61,6 +66,7 @@ public:
 	void Update(ST_KEY_STATE stKeyState);
 	void Render(void);
 
+	std::vector<float> GetScores();
 
 	GAME_STATE GetState();
 };

@@ -1,3 +1,3 @@
 #pragma once
 
-#include "Server.h"
+#include "NetworkManager.h"

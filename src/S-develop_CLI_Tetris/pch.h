@@ -1,5 +1,7 @@
 #pragma once
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #pragma comment(lib, "ws2_32.lib")
 
 #include <memory.h>
@@ -27,5 +29,5 @@
 #include <condition_variable>
 #include <cstdint>
 
-
+#include "network_headers/ip.h"
 
